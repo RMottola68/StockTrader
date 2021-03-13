@@ -1,24 +1,31 @@
-import logo from './logo.svg';
+import React, {useState, useEffect} from 'react';
 import './App.css';
+import Search from './search';
+import Portfolio from './portfolio';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+   <>
+
+    <div className={'navbar bg-primary border-bottom justify-content-center'}>
+      <h1 className={'text-light'}>Paper Trader</h1>
     </div>
+    
+    <div className={'container-fluid '}>
+      <div className={'row inline-flex'}>
+        
+        <Search />
+        <Portfolio/>
+        
+      </div>
+    </div>
+
+    
+    
+
+
+   </>
   );
 }
 
