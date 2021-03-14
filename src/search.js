@@ -64,6 +64,8 @@ const Search = (props) => {
             const res = await fetch(`http://localhost:3000/api/v1/portfolio`, options);
             let json = await res.json();
             setBuyQuantity(0);
+
+            alert('Purchased ' + buyQuantity + ' shares of ' + ticker + '!')
         
         }
     }
@@ -71,15 +73,6 @@ const Search = (props) => {
     const onBuyChange = async(ev) => {
         setBuyQuantity(ev.currentTarget.value);
     }
-
-    const sellStock = async () => {
-        console.log('stock sold')
-        setInputText('');
-    }
-    // const buyStock = async () => {
-    //     console.log('Buying the stock now!')
-
-    // }
 
     return (
         

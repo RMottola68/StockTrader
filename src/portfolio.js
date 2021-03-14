@@ -4,6 +4,8 @@ const Portfolio = (props) => {
 
     const [currentWallet, setCurrentWallet] = useState();
     const [currentPortfolio, setCurrentPortfolio] = useState();
+    const [sellQuantity, setSellQuantity] = useState();
+    const [ticker, setTicker] = useState();
 
     const fetchWallet = async() => {
         const res = await fetch(`http://localhost:3000/api/v1/wallet`);
@@ -20,6 +22,30 @@ const Portfolio = (props) => {
         
     }
 
+    const sellStock = async() => {
+        let body = {
+            symbol: ticker,
+            quantity: buyQuantity,
+            price: currentStock.data.price
+        }
+
+        let options = {
+            method: 'DELETE',
+            body: JSON.stringify(body),
+            headers: {}
+            };
+        
+        options.headers["Accept"] = "application/json, text/plain, */*";
+        options.headers["Content-Type"] = "application/json;charset=utf-8";
+
+        const res = await fetch(`http://localhost:3000/api/v1/portfolio/:id`, options);
+        let json = await res.json();
+        setBuyQuantity(0);
+
+        alert('Sold' + sellQuantity + ' shares of ' + ticker + '!')
+
+    }
+
     useEffect( () => {
         fetchWallet();
         fetchPortfolio();
@@ -32,13 +58,15 @@ const Portfolio = (props) => {
                     <th className={'inline-flex border justify-content-center'}>Value</th>
                     <th className={'border justify-content-center'}>Stock</th>
                     <th className={'border justify-content-center'}>Quantity</th>
+                    <th onClick={sellStock} className={'border justify-content-center'}>Sell</th>
                 </thead>
                 <tbody>
                     {currentPortfolio.map((item, idx) => {
                         return <tr key={idx} className={'border text-center'}>
-                            <td className={'border'}>{item.symbol}</td>
-                            <td className={'border'}>{item.quantity}</td>
-                            <td className={'border'}>{item.price}</td>
+                            <td className={'border p-3'}>{item.symbol}</td>
+                            <td className={'border p-3'}>{item.quantity}</td>
+                            <td className={'border p-3'}>{item.price}</td>
+                            <td onClick={sellStock} className={'border p-3'}><button className={'btn btn-outline-danger btn-lg'}>Sell</button></td>
                         </tr>
                     })}
                         
