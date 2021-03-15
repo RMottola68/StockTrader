@@ -4,46 +4,31 @@ const Portfolio = (props) => {
 
     const [currentWallet, setCurrentWallet] = useState();
     const [currentPortfolio, setCurrentPortfolio] = useState();
-    const [sellQuantity, setSellQuantity] = useState();
-    const [ticker, setTicker] = useState();
+    const [sellStock, setSellStock] = useState();
 
     const fetchWallet = async() => {
         const res = await fetch(`http://localhost:3000/api/v1/wallet`);
         let json = await res.json();
-        console.log(json);
         setCurrentWallet(json);
     }
 
     const fetchPortfolio = async() => {
         const res = await fetch(`http://localhost:3000/api/v1/portfolio`);
         let json = await res.json();
-        console.log(json);
         setCurrentPortfolio(json);
         
     }
 
-    const sellStock = async() => {
-        let body = {
-            symbol: ticker,
-            quantity: buyQuantity,
-            price: currentStock.data.price
-        }
 
-        let options = {
-            method: 'DELETE',
-            body: JSON.stringify(body),
-            headers: {}
-            };
+
+    const sellStockHandler = async() => {
         
-        options.headers["Accept"] = "application/json, text/plain, */*";
-        options.headers["Content-Type"] = "application/json;charset=utf-8";
-
-        const res = await fetch(`http://localhost:3000/api/v1/portfolio/:id`, options);
+        // if(window.confirm('Really Sell?')) {
+        //     const res = await fetch(`http://localhost:3000/api/v1/portfolio/`+)
+        // }
+        const res = await fetch(`http://localhost:3000/api/v1/portfolio/`);
         let json = await res.json();
-        setBuyQuantity(0);
-
-        alert('Sold' + sellQuantity + ' shares of ' + ticker + '!')
-
+        setSellStock()
     }
 
     useEffect( () => {
@@ -58,7 +43,7 @@ const Portfolio = (props) => {
                     <th className={'inline-flex border justify-content-center'}>Value</th>
                     <th className={'border justify-content-center'}>Stock</th>
                     <th className={'border justify-content-center'}>Quantity</th>
-                    <th onClick={sellStock} className={'border justify-content-center'}>Sell</th>
+                    <th className={'border justify-content-center'}>Sell</th>
                 </thead>
                 <tbody>
                     {currentPortfolio.map((item, idx) => {
@@ -66,7 +51,7 @@ const Portfolio = (props) => {
                             <td className={'border p-3'}>{item.symbol}</td>
                             <td className={'border p-3'}>{item.quantity}</td>
                             <td className={'border p-3'}>{item.price}</td>
-                            <td onClick={sellStock} className={'border p-3'}><button className={'btn btn-outline-danger btn-lg'}>Sell</button></td>
+                            <td onClick={sellStockHandler} className={'border p-3'}><button className={'btn btn-outline-danger btn-lg'}>Sell</button></td>
                         </tr>
                     })}
                         

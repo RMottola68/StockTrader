@@ -13,7 +13,6 @@ const Search = (props) => {
     const fetchWallet = async() => {
         const res = await fetch(`http://localhost:3000/api/v1/wallet`);
         let json = await res.json();
-        console.log(json);
         setCurrentWallet(json);
     }
 
@@ -37,7 +36,7 @@ const Search = (props) => {
     }
 
     const buyStock = async () => {
-        if(buyQuantity == 0){
+        if(buyQuantity === 0){
             alert('You can\'t buy nothing!')
         }
 
@@ -63,6 +62,7 @@ const Search = (props) => {
 
             const res = await fetch(`http://localhost:3000/api/v1/portfolio`, options);
             let json = await res.json();
+            console.log(json);
             setBuyQuantity(0);
 
             alert('Purchased ' + buyQuantity + ' shares of ' + ticker + '!')
