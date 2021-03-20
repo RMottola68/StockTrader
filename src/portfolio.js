@@ -20,15 +20,9 @@ const Portfolio = (props) => {
     }
 
 
-
-    const sellStockHandler = async() => {
-        
-        // if(window.confirm('Really Sell?')) {
-        //     const res = await fetch(`http://localhost:3000/api/v1/portfolio/`+)
-        // }
-        const res = await fetch(`http://localhost:3000/api/v1/portfolio/`);
-        let json = await res.json();
-        setSellStock()
+    const sellStockHandler = async(id) => {
+        await fetch(`http://localhost:3000/api/v1/portfolio/${id}`, {method: 'DELETE'})
+        alert('Stock Sold!')
     }
 
     useEffect( () => {
@@ -40,9 +34,9 @@ const Portfolio = (props) => {
         <div className={'col-sm-6 border p-3 font-weight-bold'}>Portfolio
             {currentPortfolio && <table className={'w-100 inline-flex font-weight-normal'}>
                 <thead className={'text-center'}>
-                    <th className={'inline-flex border justify-content-center'}>Value</th>
-                    <th className={'border justify-content-center'}>Stock</th>
+                    <th className={'inline-flex border justify-content-center'}>Stock</th>
                     <th className={'border justify-content-center'}>Quantity</th>
+                    <th className={'border justify-content-center'}>Value</th>
                     <th className={'border justify-content-center'}>Sell</th>
                 </thead>
                 <tbody>
@@ -51,7 +45,9 @@ const Portfolio = (props) => {
                             <td className={'border p-3'}>{item.symbol}</td>
                             <td className={'border p-3'}>{item.quantity}</td>
                             <td className={'border p-3'}>{item.price}</td>
-                            <td onClick={sellStockHandler} className={'border p-3'}><button className={'btn btn-outline-danger btn-lg'}>Sell</button></td>
+                            <td onClick = {() =>{
+                                sellStockHandler(item.id)
+                            }}className={'border p-3'}><button className={'btn btn-outline-danger btn-lg'}>Sell</button></td>
                         </tr>
                     })}
                         

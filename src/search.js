@@ -13,6 +13,7 @@ const Search = (props) => {
     const fetchWallet = async() => {
         const res = await fetch(`http://localhost:3000/api/v1/wallet`);
         let json = await res.json();
+
         setCurrentWallet(json);
     }
 
