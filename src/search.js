@@ -67,6 +67,7 @@ const Search = (props) => {
             setBuyQuantity(0);
 
             alert('Purchased ' + buyQuantity + ' shares of ' + ticker + '!')
+            window.location.reload();
         
         }
     }

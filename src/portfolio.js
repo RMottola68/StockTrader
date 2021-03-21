@@ -16,6 +16,7 @@ const Portfolio = (props) => {
         const res = await fetch(`http://localhost:3000/api/v1/portfolio`);
         let json = await res.json();
         setCurrentPortfolio(json);
+    
         
     }
 
@@ -23,6 +24,7 @@ const Portfolio = (props) => {
     const sellStockHandler = async(id) => {
         await fetch(`http://localhost:3000/api/v1/portfolio/${id}`, {method: 'DELETE'})
         alert('Stock Sold!')
+        window.location.reload();
     }
 
     useEffect( () => {
